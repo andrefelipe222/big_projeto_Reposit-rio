@@ -1,30 +1,100 @@
-1- Escolha do csv.
-Durante a realização deste projeto, utilizei ferramentas de IA generativa, especificamente o Copilot, para apoiar na escolha e organização do arquivo CSV de automóveis. O objetivo principal desse uso foi facilitar o aprendizado sobre manipulação de dados e compreender melhor como estruturar informações em um formato adequado para análise. A dificuldade encontrada foi a complexidade inicial em selecionar e preparar um conjunto de dados relevante e consistente para o trabalho, o que motivou a busca por auxílio da IA. Assim, o uso da ferramenta se restringiu ao apoio na seleção do dataset e na orientação conceitual, sem substituir o raciocínio próprio ou a execução prática das etapas do projeto.
+# 🚗 Projeto de Análise Estatística e Classificação — Dataset Autos (eBay)
 
-https://www.kaggle.com/code/amalsalilan/uncovering-the-factors-that-affect-used-car-prices/input?select=autos.csv .
+Este repositório contém o desenvolvimento de um pipeline completo de Ciência de Dados para a limpeza, modelagem preditiva e visualização interativa utilizando o dataset de automóveis do eBay Alemanha (*autos.csv*). O objetivo principal é prever a variável alvo **gearbox** (tipo de câmbio: manual ou automático) com base nas características estruturais e comerciais dos veículos.
 
-2- Tratamento e Limpeza dos Dados
-No processo de higienização do dataset autos.csv, utilizei inteligência artificial generativa como suporte técnico para compreender e tratar inconsistências estruturais na base de dados (que possuía originalmente mais de 371 mil linhas). A IA auxiliou na orientação conceitual para a identificação e remoção de outliers humanos severos (como anos de registro inválidos e preços zerados) e na estratégia de preenchimento de valores ausentes (missing values) sem que houvesse perda significativa do tamanho amostral. Além disso, a ferramenta deu suporte na escolha e aplicação do método de codificação de variáveis textuais (LabelEncoder). O maior desafio foi lidar com erros de digitação do dataset do mundo real, e a IA atuou como um tutor ágil, sugerindo boas práticas de manipulação e garantindo que cada decisão de limpeza fosse tomada com base em justificativas estatísticas sólidas.
+---
 
-3- Algoritmos de Classificação e Avaliação
-Para a implementação dos modelos preditivos de Machine Learning (Regressão Logística e Árvore de Decisão), a inteligência artificial foi utilizada como ferramenta de apoio no desenvolvimento técnico e na resolução de conflitos de ambiente. O uso estendeu-se à correta estruturação do pipeline do projeto: desde o isolamento de dependências em um ambiente virtual (.venv), passando pela padronização estatística de atributos (StandardScaler), até a extração completa das matrizes de confusão e relatórios de classificação (Accuracy, Precision, Recall e F1-Score). O principal obstáculo superado com o auxílio da IA foi a resolução de erros de caminhos de bibliotecas do sistema e o ajuste no versionamento do Git (configuração de .gitignore para arquivos pesados). O uso da IA não substituiu a lógica aplicada, mas serviu como um elemento essencial de aprendizado prático em Engenharia de Software e Ciência de Dados, ajudando a traduzir os conceitos estatísticos em um código funcional e integrado.
+## 📂 Estrutura do Repositório
 
-4- O uso da inteligência artificial neste processo serviu como uma ferramenta prática de aprendizado, pois permitiu aplicar conceitos teóricos de estatística e probabilidade em situações reais de análise de dados. Ao utilizar o Teorema de Bayes, a IA ajudou a calcular probabilidades a priori e a posteriori, mostrando como evidências (como tipo de veículo, marca ou ano de registro) influenciam na previsão de uma variável alvo (como tipo de câmbio ou faixa de preço). Esse exercício não apenas reforçou a compreensão matemática, mas também demonstrou o poder da IA em transformar dados brutos em informações úteis para tomada de decisão. Assim, além de aprender a programar e manipular dados, foi possível entender de forma prática como modelos probabilísticos podem ser aplicados em problemas reais de classificação e previsão.
+* `autos.csv`: Base de dados bruta original (removida do rastreamento do Git por tamanho).
+* `tratamento_dados.py`: Script responsável pelo carregamento, filtragem de outliers, tratamento de nulos e encoding categórico.
+* `autos_tratado.csv`: Base de dados higienizada resultante do tratamento.
+* `classificacao.py`: Script de Machine Learning (Regressão Logística e Árvore de Decisão) com extração de métricas de validação.
+* `Probabilidade de bayes.ipynb`: Jupyter Notebook contendo a modelagem estatística através do Teorema de Bayes.
+* `app.py`: Interface gráfica e dashboard interativo desenvolvido em Streamlit.
+* `intro.mp4`: Arquivo de vídeo utilizado como plano de fundo do dashboard interativo.
+* `.gitignore`: Arquivo de configuração para ignorar dados pesados e o ambiente virtual (`.venv/`).
 
-5- Descrição do dataset Origem: Dataset de veículos usados, derivado do autos.csv (com versão tratada autos_tratado.csv). Domínio: Mercado automotivo, com foco em anúncios de venda de carros. Número de instâncias: Aproximadamente dezenas de milhares de registros (dependendo da versão filtrada). Atributos principais: vehicleType, brand, powerPS, yearOfRegistration, monthOfRegistration, fuelType, gearbox, price. Variável alvo: gearbox (tipo de câmbio: automático ou manual).
+---
 
-6- Justificativa da escolha O dataset é adequado porque: Representa um problema real de classificação (prever câmbio, combustível, faixa de preço). Possui variáveis categóricas e numéricas, permitindo aplicar tanto modelos probabilísticos (Bayes) quanto algoritmos de ML (Logistic Regression, Decision Tree). É suficientemente grande para análises estatísticas e visualizações robustas. Está alinhado ao objetivo de construir um dashboard interativo para análise e previsão.
+## 🛠️ 1. Escolha do Dataset e Origem dos Dados
+O conjunto de dados utilizado mapeia anúncios de carros usados na plataforma eBay Alemanha. Ele foi obtido diretamente via Kaggle:
+🔗 [Kaggle - Uncovering the Factors That Affect Used Car Prices](https://www.kaggle.com/code/amalsalilan/uncovering-the-factors-that-affect-used-car-prices/input?select=autos.csv)
 
-7- Tratamentos aplicados Imputação de valores ausentes: Numéricos → substituídos pela média. Categóricos → substituídos pela moda ou “desconhecido”. One-Hot Encoding: aplicado para variáveis categóricas antes de treinar modelos. Padronização: StandardScaler usado para regressão logística. Criação de variáveis derivadas: powerPS_cat (faixas de potência). price_cat (faixas de preço). Visualização: gráficos de distribuição, boxplots e histogramas para explorar relações. Trecho de código ilustrativo: num_cols = df.select_dtypes(include=['float64','int64']).columns imputer = SimpleImputer(strategy="mean") X[num_cols] = imputer.fit_transform(X[num_cols])
+---
 
-8- Insights da análise exploratória Distribuição de câmbio: predominância de veículos manuais. Combustível: gasolina e diesel são os mais comuns, mas há diversidade (até 7 tipos). Potência: veículos automáticos tendem a ter maior potência média. Tipo de veículo: SUVs e sedans apresentam maior proporção de câmbio automático. Visualizações confirmaram padrões claros entre potência e câmbio, além da concentração de preços em faixas médias.
+## 🧼 2. Tratamento e Limpeza dos Dados (`tratamento_dados.py`)
+Para garantir a qualidade estatística das inferências, foram executadas as seguintes etapas de higienização automatizada:
+* **Redução de Dimensionalidade:** Remoção de colunas geradas pelo web crawler sem correlação causal com a mecânica do veículo (`index`, `dateCrawled`, `name`, `postalCode`, etc.).
+* **Filtro de Outliers Críticos:** Correção de erros humanos de digitação limitando os dados a intervalos comerciais reais:
+    * Ano de registro válido: Entre 1950 e 2016.
+    * Preço comercial: Entre € 100 e € 150.000.
+    * Potência do motor (`powerPS`): Entre 10 e 1.000 CV.
+* **Tratamento de Dados Ausentes:** Exclusão de registros com a variável alvo nula e imputação estratégica da categoria `'unspecified'` para variáveis categóricas secundárias.
+* **Codificação Categórica (Encoding):** Conversão de strings de texto em identificadores numéricos com *LabelEncoder*, preparando os dados para processamento matemático.
 
-9- Análise probabilística (Bayes) Aplicamos o Teorema de Bayes para calcular probabilidades condicionais: Exemplo: 𝑃(fuelType∣vehicleType,brand). Probabilidades foram normalizadas e exibidas em gráficos de barras e métricas percentuais (ex: 70,0%). Isso permitiu interpretar a chance de determinado combustível ou câmbio dado o perfil do veículo.
+> 📊 **Impacto Quantitativo:** A base bruta foi reduzida de **371.528 linhas** para **306.066 linhas limpas**, atestando o alto nível de ruído inicial do conjunto de dados.
 
-10- Resultados da classificação Modelos usados: Regressão Logística (com padronização). Árvore de Decisão (profundidade máxima = 10). Predições: exibidas em métricas (automatik ou manuell). Probabilidades: mostradas em gráficos percentuais (ex: 49,2%, 70,0%). Comparação com Bayes: Bayes fornece uma visão probabilística simples, mas menos precisa. ML entrega classificações mais robustas e probabilidades calibradas.
+---
 
-11- Conclusões O projeto demonstrou como EDA, Bayes e ML podem ser integrados em um dashboard interativo. Aprendizados: importância da imputação de dados, impacto da padronização, e diferenças entre abordagens probabilísticas e modelos supervisionados. Limitações: dataset pode conter ruídos (valores extremos de preço/potência), e a acurácia depende da qualidade dos atributos disponíveis. Extensões futuras: incluir métricas de desempenho (acurácia, ROC), explorar outros algoritmos (Random Forest, XGBoost) e expandir para previsão de preços.
+## 🤖 3. Modelagem Preditiva e Algoritmos de Classificação
 
-12- DECLARAÇÃO DE USO DE IA GENERATIVA O que foi feito com IA: Apoio na escrita de código em Python (tratamento de dados, implementação de Bayes, ML e Streamlit). Sugestões de melhorias visuais (uso de métricas, gráficos, vídeo de fundo). Estruturação do relatório técnico e explicações conceituais.
+O projeto implementou três abordagens independentes e complementares para a classificação do tipo de câmbio (`gearbox`):
 
-Objetivo de aprendizado: Compreender melhor conceitos de classificação probabilística e machine learning. Aprender boas práticas de organização de dashboards interativos. Desenvolver habilidades de documentação técnica. Dificuldades que justificaram o uso: Ajustes de código para lidar com valores ausentes e encoding. Formatação de probabilidades em percentuais legíveis. Integração de vídeo como fundo no Streamlit. Estruturação clara e completa do relatório técnico.
+### A. Modelos Supervisionados (`classificacao.py`)
+A base tratada foi dividida na proporção clássica de **80% para treinamento** e **20% para teste**. Os atributos preditores numéricos foram normalizados via `StandardScaler` (Z-score) para otimização do modelo linear.
+1.  **Regressão Logística:** Modelo linear estruturado para classificação probabilística binomial.
+2.  **Árvore de Decisão:** Modelo não-linear baseado em regras de quebras sucessivas por entropia, limitado a uma profundidade máxima de 10 níveis para evitar *overfitting*.
+
+### B. Abordagem Bayesiana (`Probabilidade de bayes.ipynb`)
+Implementação do **Teorema de Bayes** para o cálculo probabilístico *a priori* e *a posteriori*, computando como as propriedades combinadas do veículo (ex: ano de registro e mês) afetam a distribuição de probabilidade das classes de transmissão.
+
+---
+
+## 📈 4. Análise Comparativa e Métricas de Desempenho
+
+A avaliação dos modelos gerada no ambiente de testes revelou os seguintes resultados técnicos:
+
+| Métrica | Regressão Logística | Árvore de Decisão | Teorema de Bayes |
+| :--- | :---: | :---: | :---: |
+| **Acurácia Geral** | 82,12% | **85,87%** | *Abordagem Probabilística* |
+| **Recall (Câmbio Automático)** | 33,00% | **54,00%** | Variável Dinâmica |
+| **Recall (Câmbio Manual)** | 96,00% | 95,00% | Variável Dinâmica |
+
+**Conclusão Técnico-Científica:** O mercado automotivo alemão mapeado apresenta um desbalanceamento natural severo, com uma quantidade massivamente superior de veículos de câmbio manual. Por essa razão, o classificador linear da Regressão Logística sofreu um forte viés, tendendo a classificar a classe majoritária com facilidade, mas falhando ao capturar apenas 33% dos carros automáticos. A **Árvore de Decisão provou ser o modelo vencedor**, alcançando **85,87% de acurácia global**. Ao mapear interações não-lineares complexas, ela conseguiu mitigar o desbalanceamento dos dados e elevou o *Recall* de veículos automáticos para 54%.
+
+---
+
+## 🖥️ 5. Dashboard Interativo (`app.py`)
+Interface web desenvolvida utilizando a biblioteca **Streamlit**. O dashboard integra os modelos treinados para permitir que qualquer usuário simule o comportamento de mercado em tempo real:
+* Formulários interativos para inserção de dados do veículo (Marca, Tipo, Potência, Ano).
+* Previsão simultânea exibida por meio de cartões de métricas dinâmicas.
+* Cálculo e plotagem de gráficos com as probabilidades analíticas das classes.
+* Estilização customizada em CSS com fundo em vídeo dinâmico (`intro.mp4`).
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+### 1. Preparação e Execução do Pipeline
+Certifique-se de baixar a base de dados `autos.csv` diretamente do Kaggle e colocá-la na pasta raiz do projeto (pois ela está listada no `.gitignore`). 
+
+Depois, abra o seu terminal na pasta do projeto e execute o bloco de comandos abaixo para criar o ambiente virtual, instalar as dependências e rodar todo o pipeline de dados e a interface:
+
+```bash
+# 1. Criar e ativar o ambiente virtual (opcional, mas recomendado)
+python -m venv .venv
+source .venv/bin/activate  # No Linux/Mac
+.venv\Scripts\activate     # No Windows
+
+# 2. Instalar todas as bibliotecas necessárias
+pip install pandas scikit-learn streamlit seaborn matplotlib
+
+# 3. Executar o script de limpeza (gera o 'autos_tratado.csv')
+python tratamento_dados.py
+
+# 4. Executar o script de classificação para ver as métricas de Machine Learning
+python classificacao.py
+
+# 5. Iniciar o dashboard interativo no navegador
+streamlit run app.py
