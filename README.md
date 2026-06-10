@@ -96,8 +96,8 @@ python tratamento_dados.py
 # 4. Executar o script de classificação para ver as métricas de Machine Learning
 python classificacao.py
 
-Entrar na pasta
+# 5. Entrar na pasta
 cd "DashBoard(Autos)"
 
-# 5. Iniciar o dashboard interativo no navegador
+# 6. Iniciar o dashboard interativo no navegador
 streamlit run app.py
